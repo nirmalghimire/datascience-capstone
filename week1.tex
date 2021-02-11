@@ -1,0 +1,340 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={week1 Capstone},
+  pdfauthor={Nirmal Ghimire},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{week1 Capstone}
+\author{Nirmal Ghimire}
+\date{1/4/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{tasks-to-accomplish}{%
+\subsection{Tasks to accomplish}\label{tasks-to-accomplish}}
+
+\textbf{\emph{Tokenization }}- identifying appropriate tokens such as
+words, punctuation, and numbers. Writing a function that takes a file as
+input and returns a tokenized version of it.
+
+\textbf{\emph{Profanity filtering}} - removing profanity and other words
+you do not want to predict.
+
+\hypertarget{tips-tricks-and-hints}{%
+\subsubsection{Tips, Tricks, and Hints}\label{tips-tricks-and-hints}}
+
+\textbf{\emph{Loading the data in}}.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  This dataset is fairly large. We emphasize that you don't necessarily
+  need to load the entire dataset in to build your algorithms (see point
+  2 below).
+\item
+  At least initially, you might want to use a smaller subset of the
+  data. Reading in chunks or lines using R's \textbf{readLines} or
+  \textbf{scan} functions can be useful.
+\item
+  You can also loop over each line of text by embedding readLines within
+  a for/while loop, but this may be slower than reading in large chunks
+  at a time.
+\item
+  Reading pieces of the file at a time will require the use of a file
+  connection in R. For example, the following code could be used to read
+  the first few lines of the English Twitter
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  dataset:con \textless- file(``en\_US.twitter.txt'', ``r'')
+\end{itemize}
+
+readLines(con, 1) \#\# Read the first line of text
+
+readLines(con, 1) \#\# Read the next line of text
+
+readLines(con, 5) \#\# Read in the next 5 lines of text
+
+close(con) \#\# It's important to close the connection when you are
+done.
+
+See the connections help page for more information.
+
+\textbf{\emph{Sampling}}.
+
+To reiterate, to build models you don't need to load in and use all of
+the data. Often relatively few randomly selected rows or chunks need to
+be included to get an accurate approximation to results that would be
+obtained using all the data. Remember your inference class and how a
+representative sample can be used to infer facts about a population.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  You might want to create a separate sub-sample dataset by reading in a
+  random subset of the original data and writing it out to a separate
+  file.
+\item
+  That way, you can store the sample and not have to recreate it every
+  time.
+\item
+  You can use the rbinom function to ``flip a biased coin'' to determine
+  whether you sample a line of text or not.
+\end{enumerate}
+
+\hypertarget{quiz-1-getting-started}{%
+\subsection{Quiz 1: Getting Started}\label{quiz-1-getting-started}}
+
+\textbf{\emph{1. The \verb| en_US.blogs.txt | en\_US.blogs.txt file is
+how many megabytes?}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{givendata<-(}\KeywordTok{file.info}\NormalTok{(}\StringTok{"C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.blogs.txt"}\NormalTok{)}\OperatorTok{$}\NormalTok{size)}\OperatorTok{/}\DecValTok{1024}\OperatorTok{/}\DecValTok{1024}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"The en_US.blogs.txt file is: %s Megabytes"}\NormalTok{, givendata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "The en_US.blogs.txt file is: 200.424207687378 Megabytes"
+\end{verbatim}
+
+\textbf{\emph{2. The en\_US.twitter.txt\textbar en\_US.twitter.txt has
+how many lines of text?}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{twitterdata<-}\KeywordTok{file}\NormalTok{(}\StringTok{"C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.twitter.txt"}\NormalTok{, }\DataTypeTok{open=}\StringTok{"rb"}\NormalTok{)}
+\NormalTok{total_lines<-}\StringTok{ }\NormalTok{0L }
+\ControlFlowTok{while}\NormalTok{(}\KeywordTok{length}\NormalTok{(chunk<-}\KeywordTok{readBin}\NormalTok{(twitterdata,}\StringTok{"raw"}\NormalTok{, }\DecValTok{65536}\NormalTok{))}\OperatorTok{>}\DecValTok{0}\NormalTok{)\{}
+\NormalTok{  total_lines<-total_lines}\OperatorTok{+}\KeywordTok{sum}\NormalTok{(chunk}\OperatorTok{==}\KeywordTok{as.raw}\NormalTok{(10L))}
+\NormalTok{\}}
+\KeywordTok{close}\NormalTok{(twitterdata)}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"The en_US.twitter.txt file has: %s Lines"}\NormalTok{, total_lines)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "The en_US.twitter.txt file has: 2360148 Lines"
+\end{verbatim}
+
+\textbf{\emph{3. What is the length of the longest line seen in any of
+the three en\_US data sets? }}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{blogsdata<-}\KeywordTok{file}\NormalTok{(}\StringTok{"C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.blogs.txt"}\NormalTok{, }\DataTypeTok{open=}\StringTok{"rb"}\NormalTok{)}
+\NormalTok{twitterdata<-}\KeywordTok{file}\NormalTok{(}\StringTok{"C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.twitter.txt"}\NormalTok{, }\DataTypeTok{open=}\StringTok{"rb"}\NormalTok{)}
+\NormalTok{newsdata<-}\KeywordTok{file}\NormalTok{(}\StringTok{"C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.news.txt"}\NormalTok{, }\DataTypeTok{open=}\StringTok{"rb"}\NormalTok{)}
+\CommentTok{#Reading Lines}
+\NormalTok{blogsdata_lines<-}\KeywordTok{readLines}\NormalTok{(blogsdata)}
+\KeywordTok{close}\NormalTok{(blogsdata)}
+\NormalTok{blogsdata_L<-}\KeywordTok{summary}\NormalTok{(}\KeywordTok{nchar}\NormalTok{(blogsdata_lines))[}\DecValTok{6}\NormalTok{]}
+\NormalTok{blogsdata_L}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Max. 
+## 40835
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{twitterdata_lines<-}\KeywordTok{readLines}\NormalTok{(twitterdata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in readLines(twitterdata): line 167155 appears to contain an embedded
+## nul
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in readLines(twitterdata): line 268547 appears to contain an embedded
+## nul
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in readLines(twitterdata): line 1274086 appears to contain an embedded
+## nul
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in readLines(twitterdata): line 1759032 appears to contain an embedded
+## nul
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{close}\NormalTok{(twitterdata)}
+\NormalTok{twitterdata_L<-}\KeywordTok{summary}\NormalTok{(}\KeywordTok{nchar}\NormalTok{(twitterdata_lines))[}\DecValTok{6}\NormalTok{]}
+\NormalTok{twitterdata_L}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Max. 
+##  213
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{newsdata_lines<-}\KeywordTok{readLines}\NormalTok{(newsdata)}
+\KeywordTok{close}\NormalTok{(newsdata)}
+\NormalTok{newsdata_L<-}\KeywordTok{summary}\NormalTok{(}\KeywordTok{nchar}\NormalTok{(newsdata_lines))[}\DecValTok{6}\NormalTok{]}
+\NormalTok{newsdata_L}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Max. 
+## 11384
+\end{verbatim}
+
+\textbf{\emph{4.In the en\_US twitter data set, if you divide the number
+of lines where the word ``love'' (all lowercase) occurs by the number of
+lines the word ``hate'' (all lowercase) occurs, about what do you get?}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lovehate<-}\KeywordTok{length}\NormalTok{(}\KeywordTok{grep}\NormalTok{(}\StringTok{"love"}\NormalTok{, twitterdata_lines))}\OperatorTok{/}\KeywordTok{length}\NormalTok{(}\KeywordTok{grep}\NormalTok{(}\StringTok{"hate"}\NormalTok{, twitterdata_lines))}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"We get around: %s"}\NormalTok{, lovehate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "We get around: 4.10859156202006"
+\end{verbatim}
+
+\textbf{\emph{5. The one tweet in the en\_US twitter data set that
+matches the word ``biostats'' says what?}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{biostat_tweet<-}\KeywordTok{grep}\NormalTok{(}\StringTok{"biostats"}\NormalTok{, twitterdata_lines, }\DataTypeTok{value=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{biostat_tweet}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "i know how you feel.. i have biostats on tuesday and i have yet to study =/"
+\end{verbatim}
+
+\textbf{\emph{6. How many tweets have the exact characters ``A computer
+once beat me at chess, but it was no match for me at kickboxing''. (I.e.
+the line matches those characters exactly.)}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tweet_match<-}\KeywordTok{grep}\NormalTok{(}\StringTok{"A computer once beat me at chess, but it was no match for me at kickboxing"}\NormalTok{, twitterdata_lines)}
+\NormalTok{tweet_match}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  519059  835824 2283423
+\end{verbatim}
+
+\end{document}

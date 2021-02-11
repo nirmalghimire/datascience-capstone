@@ -1,0 +1,12 @@
+name: predicting_NG
+title: predicting_NG
+username:
+account: nirmalghimire
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3607966
+bundleId: 4208426
+url: https://nirmalghimire.shinyapps.io/predicting_NG/
+when: 1613015202.70561
+asMultiple: FALSE
+asStatic: FALSE

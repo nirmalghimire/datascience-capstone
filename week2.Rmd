@@ -1,0 +1,193 @@
+---
+title: "week2 Capstone"
+author: "Nirmal Ghimire"
+date: "1/4/2021"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Task 2 - Exploratory Data Analysis
+The first step in building a predictive model for text is understanding the distribution and relationship between the words, tokens, and phrases in the text. The goal of this task is to understand the basic relationships you observe in the data and prepare to build your first linguistic models.
+
+### Loading Required Libraries
+```{r, warning=FALSE, error=FALSE, message=FALSE}
+library(ggplot2)
+library(NLP)
+library(tm)
+library(ngram)
+library(RColorBrewer)
+library(corpus)
+library(stringi)
+library(wordcloud)
+library(RWeka)
+options(mc.cores=1)
+```
+
+***Sizes of the given data sets***
+```{r, warning=FALSE, error=FALSE, message=FALSE}
+bdata<-(file.info("C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.blogs.txt")$size)/1024/1024
+tdata<-(file.info("C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.twitter.txt")$size)/1024/1024
+ndata<-(file.info("C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.news.txt")$size)/1024/1024
+
+sprintf("The en_US.blogs.txt file is: %s Megabytes", bdata)
+sprintf("The en_US.twitter.txt file is: %s Megabytes", tdata)
+sprintf("The en_US.news.txt file is: %s Megabytes", ndata)
+```
+
+***Number of lines in the given data sets***
+````{r, warning=FALSE, error=FALSE, message=FALSE}
+twitterdata<-file("C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.twitter.txt", open="rb")
+total_lines<- 0L 
+while(length(chunk<-readBin(twitterdata,"raw", 65536))>0){
+  total_lines<-total_lines+sum(chunk==as.raw(10L))
+}
+close(twitterdata)
+
+blogsdata<-file("C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.blogs.txt", open="rb")
+total_lines0<-0L
+while(length(chunk<-readBin(blogsdata,"raw", 65536))>0){
+  total_lines0<-total_lines0+sum(chunk==as.raw(10L))
+}
+close(blogsdata)
+
+newsdata<-file("C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.news.txt", open="rb")
+total_lines1<-0L
+while(length(chunk<-readBin(newsdata,"raw", 65536))>0){
+  total_lines1<-total_lines1+sum(chunk==as.raw(10L))
+}
+close(newsdata)
+
+sprintf("The en_US.twitter.txt file has: %s Lines", total_lines)
+sprintf("The en_US.blogs.txt file has: %s Lines", total_lines0)
+sprintf("The en_US.news.txt file has: %s Lines", total_lines1)
+```
+
+*** Measuring the length of the longest line seen in any of the three en_US data sets ***
+```{r, cache=TRUE, warning=FALSE, error=FALSE, message=FALSE}
+blogsdata<-file("C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.blogs.txt", open="rb")
+twitterdata<-file("C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.twitter.txt", open="rb")
+newsdata<-file("C:/Users/nirma/Documents/Coursera/Data Science/Data Science Capstone/final/en_US/en_US.news.txt", open="rb")
+#Reading Lines
+blogsdata_lines<-readLines(blogsdata, warn=FALSE, encoding="UTF-8")
+close(blogsdata)
+blogsdata_L<-summary(nchar(blogsdata_lines))[6]
+blogsdata_L
+
+twitterdata_lines<-readLines(twitterdata, warn=FALSE, encoding="UTF-8")
+close(twitterdata)
+twitterdata_L<-summary(nchar(twitterdata_lines))[6]
+twitterdata_L
+
+newsdata_lines<-readLines(newsdata, warn=FALSE, encoding="UTF-8")
+close(newsdata)
+newsdata_L<-summary(nchar(newsdata_lines))[6]
+newsdata_L
+```
+
+### Tasks to accomplish
+
+***Taking random samples of the data for easy analyses***
+```{r,cache=TRUE, warning=FALSE, error=FALSE, message=FALSE}
+set.seed(0916)
+sample_blog<-sample(blogsdata_lines, length(blogsdata_lines)*0.05)
+sample_twitter<-sample(twitterdata_lines, length(twitterdata_lines)*0.05)
+sample_news<-sample(newsdata_lines, length(newsdata_lines)*0.05)
+
+#Combining the samples and checking total length
+sample_together<-c(sample_blog, sample_twitter, sample_news)
+sample_together<-iconv(sample_together, "UTF-8", "ASCII", sub="")
+length(sample_together)
+```
+
+***Exploratory Analysis -***
+- Checking the sample 
+```{r,warning=FALSE, error=FALSE, message=FALSE, cache=TRUE}
+corpus<-VCorpus(VectorSource(sample_together))
+corpus<-tm_map(corpus, content_transformer(stripWhitespace))#Removes multiple white spaces between words
+corpus<-tm_map(corpus, content_transformer(tolower))#Converts texts or tokens to lower(or upper) case 
+corpus<-tm_map(corpus, content_transformer(removePunctuation))#Removes punctuation marks
+corpus<-tm_map(corpus, content_transformer(removeNumbers))#Removes Numbers
+corpus<-tm_map(corpus, content_transformer(PlainTextDocument))# Creates Plain Text Documents
+corpus<-tm_map(corpus, removeWords, stopwords("english"))
+```
+
+a. Perform a thorough exploratory analysis of the data, understanding the distribution of words and relationship between the words in the corpora.
+
+***Getting Rid of Punctuation Marks and Functional Words and Creating N-GRAM Database for the Given Data Sets ***
+
+```{r, cache=TRUE, warning=FALSE, error=FALSE, message=FALSE}
+#Checking Most Frequent One Word, Two Words, Three Words, and 4 Words Combinations in the Combined Data Set
+# A. UniGram
+unigram<-function(x) NGramTokenizer(x,Weka_control(min=1,max=1))
+tdm_uni<-TermDocumentMatrix(corpus,control=list(tokenize=unigram))
+mostFreq_uni<-findFreqTerms(tdm_uni, lowfreq=40)
+
+# B. BiGrams
+bigram<-function(x) NGramTokenizer(x,Weka_control(min=2,max=2))
+tdm_bi<-TermDocumentMatrix(corpus,control=list(tokenize=bigram))
+mostFreq_bi<-findFreqTerms(tdm_bi, lowfreq=30)
+
+# C. TriGrams
+trigram<-function(x) NGramTokenizer(x,Weka_control(min=3,max=3))
+tdm_tri<-TermDocumentMatrix(corpus,control=list(tokenize=trigram))
+mostFreq_tri<-findFreqTerms(tdm_tri, lowfreq=20)
+
+# D. QuadGrams
+quadgram<-function(x) NGramTokenizer(x,Weka_control(min=4,max=4))
+tdm_quad<-TermDocumentMatrix(corpus,control=list(tokenize=quadgram))
+mostFreq_quad<-findFreqTerms(tdm_quad, lowfreq=15)
+```
+
+### Calculating Frequencies of Uni-, Bi-, Tri-, and Quadgrams
+```{r, cache=TRUE, warning=FALSE, error=FALSE, message=FALSE}
+# Calculating Unigram Frequency
+memory.size(900000)
+frequency_unigram<-rowSums(as.matrix(tdm_uni[mostFreq_uni,]))
+order_unigram<-order(frequency_unigram, decreasing=TRUE)
+frequency_unigram<-data.frame(word=names(frequency_unigram[order_unigram]),frequency=frequency_unigram[order_unigram])
+
+# Calculating Bigram Frequency
+frequency_bigram<-rowSums(as.matrix(tdm_bi[mostFreq_bi,]))
+order_bigram<-order(frequency_bigram, decreasing=TRUE)
+frequency_bigram<-data.frame(word=names(frequency_bigram[order_bigram]),frequency1=frequency_bigram[order_bigram])
+
+# Calculating Trigram Frequency
+frequency_trigram<-rowSums(as.matrix(tdm_tri[mostFreq_tri,]))
+order_trigram<-order(frequency_trigram, decreasing=TRUE)
+frequency_trigram<-data.frame(word=names(frequency_trigram[order_trigram]),frequency2=frequency_trigram[order_trigram])
+
+#Calculating Quadgram Frequency
+frequency_quadgram<-rowSums(as.matrix(tdm_quad[mostFreq_quad,]))
+order_quadgram<-order(frequency_quadgram, decreasing=TRUE)
+frequency_quadgram<-data.frame(word=names(frequency_quadgram[order_quadgram]),frequency3=frequency_quadgram[order_quadgram])
+```
+
+### Creating Some Visual Representataion of the above Findings
+
+```{r}
+# Bar Diagram for Trigrams
+ggplot(frequency_trigram[1:20,], aes(factor(word, levels=unique(word)),frequency2))+
+  geom_bar(stat='identity')+
+  theme(axis.text.x=element_text(angle=90))+
+  xlab("High Frequency Word List-30")+
+  ylab("Frequency")
+
+# Bar Diagram for Quadgrams
+ggplot(frequency_quadgram[1:20,], aes(factor(word, levels=unique(word)),frequency3))+
+  geom_bar(stat='identity')+
+  theme(axis.text.x=element_text(angle=90))+
+  xlab("High Frequency Word List-30")+
+  ylab("Frequency")
+
+# Word Cloud for Unigram
+wordcloud(frequency_unigram$word, frequency_unigram$frequency, max.words=20, colors=brewer.pal(8, "Set1"))
+
+# Word Cloud for Bigram
+wordcloud(frequency_bigram$word, frequency_bigram$frequency1, max.words=20, colors=brewer.pal(8, "Set1"))
+```  
+
